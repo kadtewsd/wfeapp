@@ -1,0 +1,40 @@
+version: '2'
+services:
+  nginx:
+    build: ./nginx
+    environment:
+       TZ: Asia/Tokyo
+       VIRTUAL_HOST: wfe.kasakaid.com
+#       LETSENCRYPT_HOST: wfe.kasakaid1.tk
+#       LETSENCRYPT_EMAIL: hoge@email.cohoge@email.com
+    volumes:
+      - ~/dev/web/wfeapp/nginx/logs/nginx/:/var/log/nginx/
+      - ~/dev/web/wfeapp/nginx/config/nginx.conf:/etc/nginx/nginx.conf
+      - ~/dev/web/wfeapp/nginx/resources:/usr/share/nginx/html/
+      - ~/dev/web/wfeapp/certs/server.crt:/etc/nginx/server.crt
+      - ~/dev/web/wfeapp/certs/server.key:/etc/nginx/server.key
+    hostname: wfe
+    ports:
+      - "80:80"
+      - "443:443"
+    labels:
+      - "description=wfeサーバーです。"
+      - "title=nginx"
+    container_name: nginx #指定しない場合 compose_webserver_1 になる
+
+  tomcat: 
+    build: ./tomcat
+    environment:
+       VIRTUAL_HOST: app.kasakaid.com
+#       LETSENCRYPT_HOST: app.kasakaid1.tk
+#       LETSENCRYPT_EMAIL: hoge@emailhoge.com
+    hostname: app
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      - ~/dev/java/springsecurity/build/libs:/opt/tomcat/webapps
+    labels:
+      - "description=appサーバーです。"
+      - "title=tomcat"
+    container_name: tomcat #指定しない場合 compose_webserver_1 になる
