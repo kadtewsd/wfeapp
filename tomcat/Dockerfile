@@ -116,7 +116,4 @@ RUN set -e \
 		exit 1; \
 	fi
 
-# ADD ~/dev/java/springsecurity/build/libs/springsecurity-0.0.1-SNAPSHOT.war /user/local/tomcat/webapps/springsecurity.war
-# ADD tomcat-users.xml /usr/local/tomcat/conf/
-# EXPOSE 8080 8081
 CMD ["catalina.sh", "run"]

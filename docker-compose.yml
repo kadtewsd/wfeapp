@@ -55,6 +55,8 @@ services:
       - "8081"
     volumes:
       - ~/dev/java/springsecurity/build/libs/springsecurity-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/springsecurity.war
+      - ./tomcat/tomcat-users.xml:/usr/local/tomcat/conf/tomcat-users.xml
+      - ./tomcat/manager.xml:/usr/local/tomcat/conf/Catalina/localhost/manager.xml
     labels:
       - "description=appサーバーです。"
       - "title=tomcat"
