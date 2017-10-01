@@ -1,0 +1,10 @@
+brew install dnsmasq # and follow the post-install instructions (or use something else if you prefer)
+# Find your docker IP, with docker-machine as 'docker-machine ip', or with docker private beta it is just 127.0.0.1
+sudo echo 'address=/kasakaid.com/127.0.0.1' >> /usr/local/etc/dnsmasq.conf
+sudo mkdir -p /etc/resolver
+echo 'nameserver 127.0.0.1' | sudo tee /etc/resolver/kasakaid.com
+sudo brew services restart dnsmasq
+# or restart dnsmasq however you chose to start it
+# restart your computer for the local dns resolver to be recognized
+# after docker-compose up, do ping.
+ping wfe.kasakaid.com -c 2
