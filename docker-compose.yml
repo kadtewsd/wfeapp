@@ -1,17 +1,17 @@
 version: '2'
 services:
- # proxy:
- #   image: jwilder/nginx-proxy
- #   volumes:
- #     - ~/dev/web/wfeapp/proxy/logs/:/var/log/nginx/
- #     - /var/run/docker.sock:/tmp/docker.sock:ro
- #     - ~/dev/web/wfeapp/certs/server.crt:/etc/nginx/server.crt
- #     - ~/dev/web/wfeapp/certs/server.key:/etc/nginx/server.key
- #   ports:
- #     - "80:80"
- #     - "443:443"
- #   container_name: proxy
- #   restart: always
+  # proxy:
+  #   image: jwilder/nginx-proxy
+  #   volumes:
+  #     - ~/dev/web/wfeapp/proxy/logs/:/var/log/nginx/
+  #     - /var/run/docker.sock:/tmp/docker.sock:ro
+  #     - ~/dev/web/wfeapp/certs/server.crt:/etc/nginx/server.crt
+  #     - ~/dev/web/wfeapp/certs/server.key:/etc/nginx/server.key
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   container_name: proxy
+  #   restart: always
   nginx:
     build: ./nginx
     environment:
@@ -47,14 +47,14 @@ services:
 #       LETSENCRYPT_HOST: app.kasakaid1.tk
 #       LETSENCRYPT_EMAIL: hoge@emailhoge.com
     hostname: app.kasakaid.com
-#    ports:
-#      - "8080:8080"
-#      - "8081:8081"
+    ports:
+      - "8080:8080"
+      - "8081:8081"
     expose:
       - "8080"
       - "8081"
     volumes:
-      - ~/dev/java/springsecurity/build/libs:/opt/tomcat/webapps
+      - ~/dev/java/springsecurity/build/libs/springsecurity-0.0.1-SNAPSHOT.war:/usr/local/tomcat/webapps/springsecurity.war
     labels:
       - "description=appサーバーです。"
       - "title=tomcat"
