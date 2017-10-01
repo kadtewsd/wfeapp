@@ -1,20 +1,17 @@
 version: '2'
 services:
-  proxy:
-    image: jwilder/nginx-proxy
-    volumes:
-      - ~/dev/web/wfeapp/proxy/logs/:/var/log/nginx/
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ~/dev/web/wfeapp/certs:/etc/nginx/certs
-      - ~/dev/web/wfeapp/certs/server.crt:/etc/nginx/server.crt
-      - ~/dev/web/wfeapp/certs/server.key:/etc/nginx/server.key
-    ports:
-      - "80:80"
-      # - "443:443"
-    container_name: proxy
-    environment:
-       TZ: Asia/Tokyo
-    restart: always
+ # proxy:
+ #   image: jwilder/nginx-proxy
+ #   volumes:
+ #     - ~/dev/web/wfeapp/proxy/logs/:/var/log/nginx/
+ #     - /var/run/docker.sock:/tmp/docker.sock:ro
+ #     - ~/dev/web/wfeapp/certs/server.crt:/etc/nginx/server.crt
+ #     - ~/dev/web/wfeapp/certs/server.key:/etc/nginx/server.key
+ #   ports:
+ #     - "80:80"
+ #     - "443:443"
+ #   container_name: proxy
+ #   restart: always
   nginx:
     build: ./nginx
     environment:
@@ -28,10 +25,10 @@ services:
       - ~/dev/web/wfeapp/nginx/resources:/usr/share/nginx/html/
       - ~/dev/web/wfeapp/certs/server.crt:/etc/nginx/server.crt
       - ~/dev/web/wfeapp/certs/server.key:/etc/nginx/server.key
-    hostname: wfe
-   # ports:
-   #   - "80:80"
-   #   - "443:443"
+    hostname: wfe.kasakaid.com
+    ports:
+      - "80:80"
+      - "443:443"
     expose:
       - "80"
       - "443"
@@ -45,10 +42,11 @@ services:
   tomcat: 
     build: ./tomcat
     environment:
+       TZ: Asia/Tokyo
        VIRTUAL_HOST: app.kasakaid.com
 #       LETSENCRYPT_HOST: app.kasakaid1.tk
 #       LETSENCRYPT_EMAIL: hoge@emailhoge.com
-    hostname: app
+    hostname: app.kasakaid.com
 #    ports:
 #      - "8080:8080"
 #      - "8081:8081"
