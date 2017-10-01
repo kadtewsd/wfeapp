@@ -2,7 +2,7 @@
 This project is used for reverse proxy for researching about releation between nginx (wfe) and tomcat (app) through docker.
 
 
-Client -> proxy -> wfe -> app
+Client -> wfe -> app
 
 # Setup
 After installing docker, you setup as follows.
